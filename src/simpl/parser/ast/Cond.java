@@ -26,13 +26,33 @@ public class Cond extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult e1_type = e1.typecheck(E);
+        Substitution sub = e1_type.s;
+        sub = sub.apply(e1_type.t).unify(Type.BOOL).compose(sub);
+
+        TypeResult e2_type = e2.typecheck(sub.compose(E));
+        sub = e2_type.s.compose(sub);
+
+        TypeResult e3_type = e3.typecheck(sub.compose(E));
+        sub = e3_type.s.compose(sub);
+        Type e2t = sub.apply(e2_type.t);
+        Type e3t = sub.apply(e3_type.t);
+        sub = e3t.unify(e2t).compose(sub);
+
+        return TypeResult.of(e3_type.s, e2t);
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        try {
+            Value flag = e1.eval(s);
+            if (((BoolValue) flag).b) {
+                return e2.eval(s);
+            } else {
+                return e3.eval(s);
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeError(e.getMessage());
+        }
     }
 }

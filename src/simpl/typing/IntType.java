@@ -7,8 +7,7 @@ final class IntType extends Type {
 
     @Override
     public boolean isEqualityType() {
-        // TODO
-        return false;
+        return true;
     }
 
     @Override
@@ -26,7 +25,6 @@ final class IntType extends Type {
 
     @Override
     public boolean contains(TypeVar tv) {
-        // TODO
         return false;
     }
 
