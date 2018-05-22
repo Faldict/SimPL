@@ -30,9 +30,15 @@ public class Env {
         this.v = v;
     }
 
-    public Value get(Symbol y) {
-        // TODO
-        return null;
+    public Value get(Symbol y) throws RuntimeError {
+        if (x == y) {
+            return v;
+        } else {
+            if (E == null) {
+                throw new RuntimeError(x.toString() + " not defined.");
+            }
+            return E.get(y);
+        }
     }
 
     public Env clone() {

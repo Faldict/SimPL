@@ -24,13 +24,16 @@ public class Deref extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult l_type = e.typecheck(E);
+        Substitution sub = l_type.s;
+        TypeVar a = new TypeVar(true);
+        sub = sub.apply(l_type.t).unify(new RefType(a)).compose(sub);
+        return TypeResult.of(sub, sub.apply(a));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        RefValue v = (RefValue) e.eval(s);
+        return s.M.get(v.p);
     }
 }

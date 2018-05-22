@@ -29,13 +29,15 @@ public class Rec extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeVar a = new TypeVar(true);
+        TypeResult e_type = e.typecheck(TypeEnv.of(E, x, a));
+        Substitution sub = e_type.s;
+        sub = sub.apply(a).unify(sub.apply(e_type.t)).compose(sub);
+        return TypeResult.of(sub, sub.apply(a));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        return e.eval(State.of(new Env(s.E, x, new RecValue(s.E, x, e)), s.M, s.p));
     }
 }

@@ -25,13 +25,26 @@ public class Loop extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult e1_type = e1.typecheck(E);
+        Substitution sub = e1_type.s;
+        sub = sub.apply(e1_type.t).unify(Type.BOOL).compose(sub);
+
+        TypeResult e2_type = e2.typecheck(E);
+        sub = e2_type.s.compose(sub);
+
+        return TypeResult.of(sub, Type.UNIT);
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        while (true) {
+            Value v1  = e1.eval(s);
+            if (!((BoolValue) v1).b) {
+                break;
+            } else {
+                e2.eval(s);
+            }
+        }
+        return Value.UNIT;
     }
 }

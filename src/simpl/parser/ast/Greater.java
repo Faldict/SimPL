@@ -18,7 +18,9 @@ public class Greater extends RelExpr {
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        Value l_v = l.eval(s);
+        Value r_v = r.eval(s);
+
+        return new BoolValue(((IntValue) l_v).n > ((IntValue) r_v).n);
     }
 }

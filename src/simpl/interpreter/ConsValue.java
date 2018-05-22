@@ -9,14 +9,23 @@ public class ConsValue extends Value {
         this.v2 = v2;
     }
 
+    private int getLength() {
+        if (v2 instanceof ConsValue) {
+            return ((ConsValue) v2).getLength() + 1;
+        }
+        return 1;
+    }
+
     public String toString() {
-        // TODO
-        return null;
+        return "list@" + getLength();
     }
 
     @Override
     public boolean equals(Object other) {
-        // TODO
+        if (other instanceof ConsValue) {
+            return v1.equals(((ConsValue) other).v1) && v2.equals(((ConsValue) other).v2);
+        }
+
         return false;
     }
 }

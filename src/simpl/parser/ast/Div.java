@@ -17,7 +17,14 @@ public class Div extends ArithExpr {
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        Value left = l.eval(s);
+        Value right = r.eval(s);
+        int result = 0;
+        try {
+            result = ((IntValue) left).n / ((IntValue) right).n;
+        } catch (RuntimeException e) {
+            throw new RuntimeError(e.getMessage());
+        }
+        return new IntValue(result);
     }
 }

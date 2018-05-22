@@ -22,13 +22,18 @@ public class Neg extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        TypeResult e_type = e.typecheck(E);
+        Substitution sub = e_type.s;
+        sub = sub.apply(e_type.t).unify(Type.INT).compose(sub);
+
+        return TypeResult.of(sub, Type.INT);
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        Value left = e.eval(s);
+        int result = -((IntValue) left).n;
+
+        return new IntValue(result);
     }
 }

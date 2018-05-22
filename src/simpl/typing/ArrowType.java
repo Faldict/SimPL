@@ -20,8 +20,9 @@ public final class ArrowType extends Type {
         if (t instanceof TypeVar) {
             return t.unify(this);
         } else if (t instanceof ArrowType) {
-            Substitution sub = t1.unify(t.t1);
-            return sub.apply(t2).unify(sub.apply(t.t2)).compose(sub);
+            ArrowType tmp = (ArrowType) t;
+            Substitution sub = t1.unify(tmp.t1);
+            return sub.apply(t2).unify(sub.apply(tmp.t2)).compose(sub);
         }
         throw new TypeMismatchError();
     }
