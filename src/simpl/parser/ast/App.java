@@ -5,6 +5,7 @@ import simpl.interpreter.lib.fst;
 import simpl.interpreter.lib.hd;
 import simpl.interpreter.lib.snd;
 import simpl.interpreter.lib.tl;
+import simpl.interpreter.pcf.iszero;
 import simpl.interpreter.pcf.pred;
 import simpl.interpreter.pcf.succ;
 import simpl.parser.Symbol;
@@ -50,7 +51,10 @@ public class App extends BinaryExpr {
             Value r_v = r.eval(s);
             if (l_tmp_v instanceof FunValue) {
                 FunValue l_v = (FunValue) l_tmp_v;
-                if (l_v instanceof succ) {
+                if (l_v instanceof iszero) {
+                    return new BoolValue(((IntValue) r_v).n == 0);
+                }
+                else if (l_v instanceof succ) {
                     return new IntValue(((IntValue) r_v).n + 1);
                 } else if (l_v instanceof pred) {
                     return new IntValue(((IntValue) r_v).n - 1);

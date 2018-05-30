@@ -33,7 +33,7 @@ public class Let extends Expr {
     @Override
     public Value eval(State s) throws RuntimeError {
         Value v1 = e1.eval(s);
-        Value v2 = e2.eval(s);
+        Value v2 = e2.eval(State.of(new Env(s.E, x, v1), s.M, s.p));
 
         return v2;
     }
