@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SimPL:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/SimPL_jar</output-path>
+    <root id="archive" name="SimPL.jar">
+      <element id="module-output" name="SimPL" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/java-cup-11a-runtime.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

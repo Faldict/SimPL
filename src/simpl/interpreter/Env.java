@@ -45,4 +45,13 @@ public class Env {
         // TODO
         return null;
     }
+
+    // GC
+    public Value getValue() {
+        return v;
+    }
+
+    public Env getEnv() {
+        return E;
+    }
 }
