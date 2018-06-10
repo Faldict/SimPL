@@ -11,7 +11,7 @@ import simpl.typing.TypeError;
 
 public class Interpreter {
 
-    public void run(String filename) {
+    private void run(String filename) {
         try (InputStream inp = new FileInputStream(filename)) {
             Parser parser = new Parser(inp);
             java_cup.runtime.Symbol parseTree = parser.parse();
@@ -41,8 +41,8 @@ public class Interpreter {
 
     public static void main(String[] args) {
         if (args.length > 0) {
-            for (int i=0; i < args.length; i++) {
-                interpret(args[i]);
+            for (String arg : args) {
+                interpret(arg);
             }
         } else {
              interpret("doc/examples/plus.spl");

@@ -12,8 +12,6 @@ final class IntType extends Type {
 
     @Override
     public Substitution unify(Type t) throws TypeError {
-        // DONE
-        // Copy UnitType.unify()
         if (t instanceof TypeVar) {
             return t.unify(this);
         }
@@ -30,8 +28,6 @@ final class IntType extends Type {
 
     @Override
     public Type replace(TypeVar a, Type t) {
-        // DONE
-        // Copy UnitType.replace()
         return Type.INT;
     }
 

@@ -1,6 +1,7 @@
 bin/
 *.class
 .DS_Store
+*.pdf
 *.log
 *.aux
 *.synctex.gz
